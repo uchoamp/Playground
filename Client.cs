@@ -24,4 +24,18 @@ public class Client: HttpClient
         DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
     }
 
+    public async Task<Response> CreateUser(User user){
+
+        var requestContent = new StringContent(user.ToJson(), Encoding.UTF8, "application/json");
+
+        var requestResponse = await PostAsync("/api/users/create", requestContent);
+
+
+        var content = await requestResponse.Content.ReadAsStreamAsync();
+        var response = await JsonSerializer.DeserializeAsync<Response>(content); 
+
+        return response ?? new Response(); 
+    }
+
+
 }
