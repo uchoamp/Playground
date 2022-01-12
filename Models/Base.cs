@@ -10,10 +10,13 @@ public abstract class JsonObject
         return ToJson(true);
     }
    
-    public string ToJson(bool writedIndented = false)
+    public virtual string ToJson(bool writedIndented = false )
     {
 
-        return JsonSerializer.Serialize(this, GetType(), new JsonSerializerOptions { WriteIndented = writedIndented});
+        var serializeOptions = new JsonSerializerOptions { WriteIndented = writedIndented };
+
+
+        return JsonSerializer.Serialize(this, GetType(), serializeOptions);
     }
 }
 

@@ -12,8 +12,12 @@ namespace LacunaGenetics
         public static async Task Main(string[] args)
         {
             //Create a user 
+            /*
             Response response = await client.CreateUser(user);
             Console.WriteLine(response);
+            */
+
+            await client.Login(user);
         }
 
     }

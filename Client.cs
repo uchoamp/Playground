@@ -38,4 +38,22 @@ public class Client: HttpClient
     }
 
 
+    public async Task Login(User user){
+
+        var requestContent = new StringContent(user.GetJsonCredentials(), Encoding.UTF8, "application/json");
+
+        var requestResponse = await PostAsync("/api/users/login", requestContent);
+
+        var content = await requestResponse.Content.ReadAsStreamAsync();
+
+        var response = await JsonSerializer.DeserializeAsync<ResponseToken>(content); 
+
+        if(response != null &&  response.Code != "Success"){
+            throw new Exception(response.Message != null ? $"{response.Message} with status code {response.Code}." : $"Status code {response.Code}."); 
+        }
+
+        DefaultRequestHeaders.Add("Authorization", "Bearer " + response?.AccessToken);
+        Console.WriteLine($"User {user.Username} is logged in.");
+    }
+        
 }

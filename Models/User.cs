@@ -1,8 +1,9 @@
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace LacunaGenetics.Models;
 
-public class User: JsonObject
+public class User : JsonObject
 {
 
     [JsonPropertyName("username")]
@@ -28,5 +29,9 @@ public class User: JsonObject
         Password = password;
     }
 
+    public string GetJsonCredentials()
+    {
+        return JsonSerializer.Serialize(new User(Username, Password), GetType());
+    }
 
 }

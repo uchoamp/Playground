@@ -20,3 +20,12 @@ public class Response : JsonObject
 
 }
 
+public class ResponseToken : Response 
+{
+
+    [JsonPropertyName("accessToken")]
+    public string? AccessToken{ get; set; }
+
+}
+
+
