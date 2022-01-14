@@ -11,13 +11,46 @@ namespace LacunaGenetics
 
         public static async Task Main(string[] args)
         {
-            //Create a user 
-            /*
-            Response response = await client.CreateUser(user);
-            Console.WriteLine(response);
-            */
+            Console.CancelKeyPress += (sender, args) =>
+            {
+                Console.WriteLine("\nEnd of Work!!!");
+
+                Environment.Exit(0);
+            };
+            //Response? response = await client.CreateUser(user);
+            //Console.WriteLine(response);
+
+            Job? job;
+            Response jobResult;
 
             await client.Login(user);
+            while (true)
+            {
+                Console.WriteLine("Press Ctrl - C to STOP working.");
+                job = await client.GetJob();
+
+                if (job != null)
+                {
+
+                    Console.WriteLine("Making the job: " + job.GetJobDescription());
+                    jobResult = await client.MakeTheJob(job);
+
+                    Console.WriteLine("Result of work: " + (jobResult.Message != null ? jobResult.Message : jobResult.Code) + "\n");
+
+                    if (jobResult.Code == "Fail")
+                    {
+                        Console.WriteLine(job);
+                        throw new Exception("Job is failed.");
+                    }
+
+                }
+                else
+                {
+                    Console.WriteLine("Work is over, time to rest.");
+                    break;
+                }
+                Thread.Sleep(5000);
+            }
         }
 
     }
