@@ -121,7 +121,7 @@ public class Job : JsonObject
     public string GetJsonJobDone()
     {
         if (Type == null)
-            throw new ArgumentException("The atribute canot be null.", nameof(Type));
+            throw new ArgumentException("The atribute cannot be null.", nameof(Type));
         RequestJob requestJob = new();
 
         var jobMeta = (JobMeta)JobsType[Type];
@@ -148,10 +148,10 @@ public class Job : JsonObject
 
     private static Func<Job, T> GetMakeJob<T>(string methodName)
     {
+        MethodInfo? makeJob = @this.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public);
 
         return (Job @this) =>
         {
-            MethodInfo? makeJob = @this.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public);
 
             if (makeJob == null)
                 throw new Exception($"Not found a method to make the job {methodName}");
@@ -165,7 +165,7 @@ public class Job : JsonObject
     public string DecodeStrand()
     {
         if (StrandEncoded == null)
-            throw new ArgumentException("The atribute canot be null.", nameof(StrandEncoded));
+            throw new ArgumentException("The atribute cannot be null.", nameof(StrandEncoded));
 
         return DecodeStrand(StrandEncoded);
     }
@@ -173,7 +173,7 @@ public class Job : JsonObject
     public string EncodeStrand()
     {
         if (Strand == null)
-            throw new ArgumentException("The atribute canot be null.", nameof(Strand));
+            throw new ArgumentException("The atribute cannot be null.", nameof(Strand));
 
         return EncodeStrand(Strand);
     }
@@ -181,7 +181,7 @@ public class Job : JsonObject
     public bool CheckGene()
     {
         if (StrandEncoded == null)
-            throw new ArgumentException("The atribute canot be null.", nameof(StrandEncoded));
+            throw new ArgumentException("The atribute cannot be null.", nameof(StrandEncoded));
         if (GeneEncoded == null)
             throw new ArgumentException("The atribute canot be null.", nameof(GeneEncoded));
 
@@ -267,14 +267,14 @@ public class Job : JsonObject
     public string GetPathDelivery()
     {
         if (Type == null)
-            throw new ArgumentException("The atribute canot be null.", nameof(Type));
+            throw new ArgumentException("The atribute cannot be null.", nameof(Type));
         return JobsType[Type].PathUri;
     }
 
     public string GetJobDescription()
     {
         if (Type == null)
-            throw new ArgumentException("The atribute canot be null.", nameof(Type));
+            throw new ArgumentException("The atribute cannot be null.", nameof(Type));
         return JobsType[Type].Description;
     }
 }
