@@ -1,0 +1,17 @@
+{
+    "configurations": {
+        "Launch": {
+            "adapter": "vscode-cpptools",
+            "filetypes": [ "cpp", "c", "objc", "rust"  ], // optional
+            "configuration": {
+                "request": "launch",
+                "program": "${workspaceRoot}/a.out",
+                "args": [],
+                "cwd": "${workspaceRoot}",
+                "environment": [],
+                "externalConsole": false
+            }
+
+        }
+    }
+}
